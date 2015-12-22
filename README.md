@@ -5,7 +5,7 @@ Proje : MATLAB ile sentezleme
 
 note.m ;
 dosya tipi         : matlab
-projedeki görevi   : sinüs fonksiyonunu grafik elde etme
+projedeki görevi   : sinüs fonksiyonunu grafik elde etme   
 içeriði            ;
 
 function [xx,zz]=note (f,dur)    
@@ -24,10 +24,18 @@ function [A]=frek(nota,oktav)
 notalar={'Do','C#','Re','Eb','Mi','Fa','F#','Sol','G#','La','Bb','Si'};     
 x=strcmp(notalar,nota);                                                     
 y=find(x,1);                                                                
-A=round(16.35*(2^oktav)*(2^((y-1)/12)));           
+A=round(16.35*(2^oktav)*(2^((y-1)/12)));    
+
+notalar.txt ;
+dosya tipi          : txt
+projedeki görevi    : oktavlarý düzenledim. 
+
+
 
 Pdf te verilen oktav deðerlerindeki kýyaslamada
 1 notanýn oktavlarý arasýnda 2 kat oran vardýr.
 örnek;
 Do notasý 1.oktav 32.70
-Do notasý 2.oktav 65.40                        
+Do notasý 2.oktav 65.40     
+
+                   
