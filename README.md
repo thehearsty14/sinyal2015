@@ -3,39 +3,29 @@ Osman Demir
 Sinyal Ýþleme
 Proje : MATLAB ile sentezleme
 
+Yeni Hafta
+
+
+
 note.m ;
 dosya tipi         : matlab
-projedeki görevi   : sinüs fonksiyonunu grafik elde etme   
-içeriði            ;
+projedeki görevi   :fonksiyonlarý zarflama iþlemi uyguladým 
 
-function [xx,zz]=note (f,dur)    
-zz=0:1/1000000:dur;              
-xx=sin(2*pi*f*zz);                 
-plot(zz,xx)                      
+sentez.m ;
+dosya tipi         : matlab
+projedeki görevi   :echo ve harmonikleri ekledik  sinyalleri normalize iþlemini uyguladýk 
+                
 
 
 
 frek.m ;
 dosya tipi         : matlab
 projedeki görevi   : oktav hesaplama
-içeriði            ;
-
-function [A]=frek(nota,oktav)                                               
-notalar={'Do','C#','Re','Eb','Mi','Fa','F#','Sol','G#','La','Bb','Si'};     
-x=strcmp(notalar,nota);                                                     
-y=find(x,1);                                                                
-A=round(16.35*(2^oktav)*(2^((y-1)/12)));    
 
 notalar.txt ;
 dosya tipi          : txt
-projedeki görevi    : oktavlarý düzenledim. 
+projedeki görevi    : virgülleri sildik boþluk ekledik
 
 
-
-Pdf te verilen oktav deðerlerindeki kýyaslamada
-1 notanýn oktavlarý arasýnda 2 kat oran vardýr.
-örnek;
-Do notasý 1.oktav 32.70
-Do notasý 2.oktav 65.40     
 
                    
