@@ -1,0 +1,137 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>sentez</title><meta name="generator" content="MATLAB 7.10"><meta name="date" content="2016-01-05"><meta name="m-file" content="sentez"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><pre class="codeinput">[nota,b,c]=textread(<span class="string">'notalar.txt'</span>,<span class="string">'%s %s %s'</span>);<span class="comment">%notalar txt deki de&#287;erleri okur</span>
+fs=8192; <span class="comment">%&ouml;rnekleme frekans&#305;</span>
+ds=round(fs/100); <span class="comment">%durma s&uuml;resi</span>
+go=round(fs/10); <span class="comment">%gecikme s&uuml;resi</span>
+notalar=zeros(1,fs);  <span class="comment">%dizi olusturduk &ouml;rnekleme frekans&#305; kadar</span>
+a=zeros(1,length(notalar)); <span class="comment">%0 matrisi olusturduk</span>
+durak=zeros(1,ds);  <span class="comment">%durma s&uuml;resini uzunluga g&ouml;re degistirir.</span>
+</pre><pre class="codeinput">   <span class="keyword">for</span> i=1:(length(nota))
+       oktav((i),1)=str2num(cell2mat(b(i,1)));<span class="comment">%nota dizisi boyu d&ouml;ng&uuml;s&uuml; olusturduk</span>
+       vurus((i),1)=str2num(cell2mat(c(i,1))); <span class="comment">%convert i&#351;lemi</span>
+       frekans((i),1)=frek(nota((i),1),oktav((i),1)); <span class="comment">%frek fonk u cag&#305;rd&#305;k</span>
+       [x,t]=note(frekans((i),1),vurus((i),1)); <span class="comment">%note fonk u cag&#305;rd&#305;k</span>
+       notalar=[notalar durak x]; <span class="comment">%birle&#351;tirme i&#351;lemi atama</span>
+   <span class="keyword">end</span>
+   plot(notalar)
+</pre><img vspace="5" hspace="5" src="sentez_01.png" alt=""> <pre class="codeinput"> notalarecho=zeros(1,(length(notalar))); <span class="comment">%0 lardan olusan bir dizi</span>
+ <span class="keyword">for</span> i=1:(length(notalar)) <span class="comment">%d&ouml;ng&uuml; olusturuk</span>
+     f=(go+i); <span class="comment">%gecikme s&uuml;resi d&ouml;ng&uuml;ye sokuldu</span>
+     <span class="keyword">if</span> f&lt;(length(notalar)) <span class="comment">%&#351;art sa&#287;land&#305; ge&ccedil;imi engellemek i&ccedil;in</span>
+     notalarecho(i)=notalar(i)*0.3+notalar(f); <span class="comment">%y&uuml;zde 30 kayd&#305;rma i&#351;lemi</span>
+     <span class="keyword">else</span>
+      notalarecho(i)=notalar(i)*0.3+0;
+     <span class="keyword">end</span>
+ <span class="keyword">end</span>
+ plot(notalarecho)
+</pre><img vspace="5" hspace="5" src="sentez_02.png" alt=""> <pre class="codeinput">  normalizenotalarecho=zeros(1,(length(notalar))); <span class="comment">%normalizasyon i&#351;lemleri i&ccedil;in de&#287;i&#351;ken tan&#305;mlad&#305;k</span>
+  normalizenotalarecho=notalarecho/max(abs(notalarecho)); <span class="comment">%tepe degeri 1 e normalize edilmi&#351;tir.</span>
+  plot(normalizenotalarecho)
+sound(normalizenotalarecho) <span class="comment">%sinyal</span>
+</pre><img vspace="5" hspace="5" src="sentez_03.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.10<br></p></div><!--
+##### SOURCE BEGIN #####
+
+%%
+[nota,b,c]=textread('notalar.txt','%s %s %s');%notalar txt deki değerleri okur
+fs=8192; %örnekleme frekansı
+ds=round(fs/100); %durma süresi
+go=round(fs/10); %gecikme süresi
+notalar=zeros(1,fs);  %dizi olusturduk örnekleme frekansı kadar
+a=zeros(1,length(notalar)); %0 matrisi olusturduk
+durak=zeros(1,ds);  %durma süresini uzunluga göre degistirir.
+%%
+                                                                            
+   for i=1:(length(nota))
+       oktav((i),1)=str2num(cell2mat(b(i,1)));%nota dizisi boyu döngüsü olusturduk
+       vurus((i),1)=str2num(cell2mat(c(i,1))); %convert işlemi
+       frekans((i),1)=frek(nota((i),1),oktav((i),1)); %frek fonk u cagırdık
+       [x,t]=note(frekans((i),1),vurus((i),1)); %note fonk u cagırdık
+       notalar=[notalar durak x]; %birleştirme işlemi atama
+   end 
+   plot(notalar)
+   %%
+   
+ notalarecho=zeros(1,(length(notalar))); %0 lardan olusan bir dizi
+ for i=1:(length(notalar)) %döngü olusturuk
+     f=(go+i); %gecikme süresi döngüye sokuldu
+     if f<(length(notalar)) %şart sağlandı geçimi engellemek için
+     notalarecho(i)=notalar(i)*0.3+notalar(f); %yüzde 30 kaydırma işlemi
+     else 
+      notalarecho(i)=notalar(i)*0.3+0; 
+     end
+ end 
+ plot(notalarecho)
+ %%
+ 
+  normalizenotalarecho=zeros(1,(length(notalar))); %normalizasyon işlemleri için değişken tanımladık
+  normalizenotalarecho=notalarecho/max(abs(notalarecho)); %tepe degeri 1 e normalize edilmiştir.
+  plot(normalizenotalarecho)
+sound(normalizenotalarecho) %sinyal
+
+    
+##### SOURCE END #####
+--></body></html>
